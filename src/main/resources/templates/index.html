@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: header}">
+    <title>Inventory List</title>
+    <style>
+        /* Custom CSS for button height and card styling */
+        .btn-custom {
+            padding: 0.4rem 1.25rem;
+            font-size: 0.875rem;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-title {
+            font-weight: bold;
+            color: #333;
+        }
+        .card-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <nav th:replace="~{home :: navbar}"></nav>
+
+    <!-- Sidebar -->
+    <div th:replace="~{home :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div id="content" class="content pt-5 mt-3">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mt-4">Inventory List</h3>
+            </div>
+            <!-- Product Card Grid -->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" th:each="product : ${products}">
+                    <div class="card h-100">
+                        <!-- Product Image -->
+                        <img th:src="@{'/images/' + ${product.fileName}}" class="card-img-top" alt="Product Image" style="width: 100%; height: 180px; object-fit: contain; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                        
+                        <!-- Card Body -->
+                        <div class="card-body text-center">
+                            <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                            <p class="card-text">
+                                <strong>Price:</strong> ₹<span th:text="${product.price}"></span><br>
+                                <strong>Quantity:</strong> <span th:text="${product.quantity}"></span>
+                            </p>
+                        </div>                    
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts for Sidebar and Theme Toggling -->
+    <span th:replace="~{home :: scripted}"></span>
+</body>
+</html>

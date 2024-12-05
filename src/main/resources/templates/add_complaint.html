@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: header}">
+    <title>Add Complaint</title>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <nav th:replace="~{home :: navbar}"></nav>
+
+    <!-- Sidebar -->
+    <div th:replace="~{home :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div id="content" class="content pt-5">
+        <div class="container">
+            <h2 class="mt-4">Add Complaint</h2>
+            <form th:action="@{/complaints/save}" th:object="${complaint}" method="post" class="p-4 border rounded bg-light">
+                
+                <!-- Employee Selection -->
+                <div class="mb-3">
+                    <label for="employee" class="form-label">Employee:</label>
+                    <select id="employee" th:field="*{employee}" class="form-select" >
+                        <option th:each="employee : ${employees}" 
+                                th:value="${employee.id}" 
+                                th:text="${employee.name}">Select Employee</option>
+                    </select>
+                </div>
+                
+                <!-- Product Selection -->
+                <div class="mb-3">
+                    <label for="product" class="form-label">Product:</label>
+                    <select id="product" th:field="*{product}" class="form-select">
+                        <option th:each="product : ${products}" 
+                                th:value="${product.id}" 
+                                th:text="${product.name}">Select Product</option>
+                    </select>
+                </div>
+                
+                <!-- Complaint Details -->
+                <div class="mb-3">
+                    <label for="complaintDetails" class="form-label">Complaint Details:</label>
+                    <textarea id="complaintDetails" th:field="*{complaintDetails}" class="form-control" rows="4" required></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Submit Complaint</button>
+                <a href="/complaints" class="btn btn-secondary ms-2">Back to Complaints List</a>
+                
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts for Sidebar and Theme Toggling -->
+    <span th:replace="~{home :: scripted}"></span>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: header}">
+    <title>Employee List</title>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <nav th:replace="~{home :: navbar}"></nav>
+
+    <!-- Sidebar -->
+    <div th:replace="~{home :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div id="content" class="content pt-5">
+        <div class="container">
+            <h2 class="mt-4">Employee List</h2>
+            
+            <!-- Employee Table -->
+            <table class="table table-striped mt-4">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="employee : ${employees}">
+                        <td th:text="${employee.name}"></td>
+                        <td th:text="${employee.designation}"></td>
+                        <td>
+                            <a th:href="@{/employees/edit/{id}(id=${employee.id})}" class="btn btn-outline-primary btn-sm me-2">Edit</a>
+                            <a th:href="@{/employees/delete/{id}(id=${employee.id})}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                </tbodyclass="table table-striped mt-4">
+            </table>
+            
+            <!-- Add Employee Button -->
+            <a href="/employees/add" class="btn btn-primary mt-3"><i class="bi bi-plus"></i>Add Employee</a>
+        </div>
+    </div>
+
+    <!-- Scripts for Sidebar and Theme Toggling -->
+    <span th:replace="~{home :: scripted}"></span>
+</body>
+</html>

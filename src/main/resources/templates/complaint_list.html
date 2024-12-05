@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: header}">
+    <title>Complaint List</title>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <nav th:replace="~{home :: navbar}"></nav>
+
+    <!-- Sidebar -->
+    <div th:replace="~{home :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div id="content" class="content pt-5">
+        <div class="container">
+            <h2 class="mt-4">Complaint List</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Employee</th>
+                        <th>Product</th>
+                        <th>Complaint/ Requisition Details</th>
+                        <th>Date of Complaint</th>
+                        <th>Resolved</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="complaint : ${complaints}">
+                        <td th:text="${complaint.employee.name}"></td>
+                        <td th:text="${complaint.product.name}"></td>
+                        <td th:text="${complaint.complaintDetails}"></td>
+                        <td th:text="${complaint.dateOfComplaint}"></td>
+                        <td th:text="${complaint.resolved ? 'Yes' : 'No'}"></td>
+                        <td>
+                            <a th:href="@{/complaints/edit/{id}(id=${complaint.id})}" class="btn btn-warning btn-sm">Edit</a>
+                            <a th:href="@{/complaints/delete/{id}(id=${complaint.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a th:if="${!complaint.resolved}" th:href="@{/complaints/resolve/{id}(id=${complaint.id})}" class="btn btn-success btn-sm">Resolve</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="/complaints/add" class="btn btn-primary mt-3">Add Complaint</a>
+        </div>
+    </div>
+
+    <!-- Scripts for Sidebar and Theme Toggling -->
+    <span th:replace="~{home :: scripted}"></span>
+</body>
+</html>
+
+
+
+
+

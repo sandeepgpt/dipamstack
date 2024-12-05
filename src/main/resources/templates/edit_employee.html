@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: header}">
+    <title>Edit Employee</title>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <nav th:replace="~{home :: navbar}"></nav>
+
+    <!-- Sidebar -->
+    <div th:replace="~{home :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div id="content" class="content pt-5">
+        <div class="container">
+            <h2 class="mt-4">Edit Employee</h2>
+            
+            <!-- Edit Employee Form -->
+            <form th:action="@{/employees/update/{id}(id=${employee.id})}" th:object="${employee}" method="post" class="p-4 border rounded bg-light">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="designation" class="form-label">Designation:</label>
+                    <input type="text" id="designation" th:field="*{designation}" class="form-control" >
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts for Sidebar and Theme Toggling -->
+    <span th:replace="~{home :: scripted}"></span>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: header}">
+    <title>Add Distribution</title>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <nav th:replace="~{home :: navbar}"></nav>
+
+    <!-- Sidebar -->
+    <div th:replace="~{home :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div id="content" class="content pt-5">
+        <div class="container">
+            <h2 class="mt-4">Add Distribution</h2>
+
+            <!-- Distribution Form -->
+            <form th:action="@{/distributions/save}" th:object="${distribution}" method="post" class="p-4 border rounded bg-light">
+                
+                <div class="mb-3" style="max-width: 300px;">
+                    <label for="product" class="form-label">Product:</label>
+                    <select id="product" th:field="*{product}" class="form-select">
+                        <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}">Product</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3" style="max-width: 300px;">
+                    <label for="employee" class="form-label">Employee:</label>
+                    <select id="employee" th:field="*{employee}" class="form-select">
+                        <option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.name}">Employee</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3" style="max-width: 300px;">
+                    <label for="quantityDistributed" class="form-label">Quantity:</label>
+                    <input type="number" id="quantityDistributed" th:field="*{quantityDistributed}" class="form-control" min="1">
+                </div>
+                
+               <div class="mb-3" style="max-width: 300px;">
+                 <label for="distributionDate" class="form-label">Distribution Date:</label>
+                 <input type="date" id="distributionDate" th:field="*{distributionDate}" class="form-control">
+               </div>
+
+                
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts for Sidebar and Theme Toggling -->
+    <span th:replace="~{home :: scripted}"></span>
+</body>
+</html>

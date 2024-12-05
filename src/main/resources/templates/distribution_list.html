@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: header}">
+    <title>Distribution List</title>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <nav th:replace="~{home :: navbar}"></nav>
+
+    <!-- Sidebar -->
+    <div th:replace="~{home :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div id="content" class="content pt-5">
+        <div class="container">
+           <!--  <h2 class="mb-4">Distribution List</h2> -->
+
+            <!-- Distribution Table -->
+            <table class="table table-striped mt-4">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Product</th>
+                        <th>Employee</th>
+                        <th>Quantity Distributed</th>
+                        <th>Distribution Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="distribution : ${distributions}">
+                        <td th:text="${distribution.product.name}"></td>
+                        <td th:text="${distribution.employee.name}"></td>
+                        <td th:text="${distribution.quantityDistributed}"></td>
+                        <td th:text="${#temporals.format(distribution.distributionDate, 'dd-MM-yyyy')}"></td>
+                        <td>
+                            <a th:href="@{/distributions/edit/{id}(id=${distribution.id})}" class="btn btn-outline-primary btn-sm me-2">Edit</a>
+                            <a th:href="@{/distributions/delete/{id}(id=${distribution.id})}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="/distributions/add" class="btn btn-primary mt-3">Add Distribution</a>
+        </div>
+    </div>
+
+    <!-- Scripts for Sidebar and Theme Toggling -->
+    <span th:replace="~{home :: scripted}"></span>
+</body>
+</html>
